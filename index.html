@@ -3,66 +3,381 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santo do dia 02/07 - Santo do Dia</title>
+    <title>Santo do dia 01/07 - Santo do Dia</title>
+    <meta name="description" content="Conheça a história de Santo do dia 01/07 e uma reflexão para seu dia">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #764ba2;
+            --secondary: #667eea;
+            --accent: #f093fb;
+            --text-dark: #2d3748;
+            --text-light: #4a5568;
+            --bg-light: #f7fafc;
+        }
+        
         body {
-            font-family: Georgia, serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            padding: 0;
+            margin: 0;
+            animation: gradientShift 15s ease infinite;
+            background-size: 200% 200%;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
             padding: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+            animation: fadeInUp 0.8s ease;
+            margin-top: 20px;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(180deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
-        .card {
-            max-width: 600px;
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        
+        .saint-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
         }
+        
+        .saint-photo:hover {
+            transform: scale(1.05);
+        }
+        
+        .saint-icon {
+            width: 300px;
+            height: 300px;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .svg-fallback {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .content {
+            padding: 50px;
+        }
+        
+        .title-section {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease 0.3s both;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
         h1 {
-            color: #764ba2;
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 2em;
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            line-height: 1.2;
         }
-        .data {
-            text-align: center;
-            color: #666;
-            font-style: italic;
-            margin-bottom: 30px;
+        
+        .date {
+            font-size: 1.1em;
+            color: var(--text-light);
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
-        .mensagem {
+        
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin: 35px 0 45px 0;
+            animation: fadeIn 1s ease 0.5s both;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 10px 24px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            border-radius: 50px;
+            font-size: 0.95em;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102,126,234,0.4);
+        }
+        
+        .text {
+            color: var(--text-dark);
             line-height: 1.9;
+            font-size: 1.1em;
+            animation: fadeIn 1s ease 0.7s both;
+        }
+        
+        .text p {
+            margin-bottom: 25px;
             text-align: justify;
-            color: #333;
         }
-        .mensagem p { margin-bottom: 20px; }
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px solid #eee;
+        
+        .quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35em;
+            font-style: italic;
             text-align: center;
-            color: #999;
+            color: var(--primary);
+            padding: 35px 40px;
+            margin: 40px 0;
+            background: linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%);
+            border-radius: 16px;
+            border-left: 5px solid var(--primary);
+            position: relative;
+            box-shadow: 0 4px 20px rgba(118,75,162,0.1);
         }
-        @media (max-width: 600px) {
-            body { padding: 10px; }
-            .card { padding: 25px; }
-            h1 { font-size: 1.5em; }
+        
+        .quote::before {
+            content: '"';
+            font-size: 4em;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            color: var(--accent);
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 40px 50px;
+            background: linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%);
+            border-top: 1px solid rgba(118,75,162,0.1);
+            animation: fadeIn 1s ease 0.9s both;
+        }
+        
+        .footer p {
+            font-size: 1.15em;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .emoji {
+            font-size: 1.5em;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* Responsivo Mobile */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .card {
+                border-radius: 16px;
+                margin-top: 10px;
+            }
+            
+            .header {
+                height: 300px;
+            }
+            
+            .saint-icon {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .content {
+                padding: 30px 25px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .date {
+                font-size: 0.95em;
+            }
+            
+            .badges {
+                gap: 8px;
+                margin: 25px 0 35px 0;
+            }
+            
+            .badge {
+                padding: 8px 18px;
+                font-size: 0.85em;
+            }
+            
+            .text {
+                font-size: 1em;
+            }
+            
+            .quote {
+                font-size: 1.15em;
+                padding: 25px 20px;
+                margin: 30px 0;
+            }
+            
+            .quote::before {
+                font-size: 3em;
+                left: 10px;
+            }
+            
+            .footer {
+                padding: 30px 25px;
+            }
+            
+            .footer p {
+                font-size: 1em;
+            }
+        }
+        
+        /* Animação de entrada suave */
+        @media (prefers-reduced-motion: no-preference) {
+            .card {
+                animation: fadeInUp 0.8s ease;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>✨ Santo do dia 02/07 ✨</h1>
-        <p class="data">02 de julho de 2026</p>
-        <div class="mensagem">
-            <p>Santo do dia 02/07</p><p>Biografia em breve.</p><p>"Que a fé guie nossos passos."</p><p>Hoje celebramos Santo do dia 02/07.</p>
-        </div>
-        <div class="footer">
-            <p>🙏 Que esta mensagem ilumine seu dia!</p>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <img src="https://source.unsplash.com/800x600/?catholic%20saint%20Santo%20do%20dia%2001/07" alt="Santo do dia 01/07" class="saint-photo" onerror="this.style.display='none'; document.querySelector('.svg-fallback').style.display='block';">
+                <div class="svg-fallback" style="display:none;">
+    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="saint-icon">
+        <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+            </linearGradient>
+            <filter id="glow">
+                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
+        </defs>
+        
+        <!-- Círculo de fundo -->
+        <circle cx="200" cy="200" r="180" fill="url(#grad1)" opacity="0.1"/>
+        <circle cx="200" cy="200" r="150" fill="url(#grad1)" opacity="0.2"/>
+        
+        <!-- Cruz central com brilho -->
+        <g filter="url(#glow)">
+            <rect x="185" y="120" width="30" height="160" fill="url(#grad1)" rx="15"/>
+            <rect x="130" y="175" width="140" height="30" fill="url(#grad1)" rx="15"/>
+        </g>
+        
+        <!-- Auréola -->
+        <circle cx="200" cy="140" r="60" fill="none" stroke="url(#grad1)" stroke-width="6" opacity="0.6"/>
+        
+        <!-- Raios de luz -->
+        <path d="M 200 80 L 200 40" stroke="url(#grad1)" stroke-width="4" opacity="0.5"/>
+        <path d="M 240 100 L 260 70" stroke="url(#grad1)" stroke-width="4" opacity="0.5"/>
+        <path d="M 160 100 L 140 70" stroke="url(#grad1)" stroke-width="4" opacity="0.5"/>
+    </svg>
+    </div>
+            </div>
+            
+            <div class="content">
+                <div class="title-section">
+                    <h1>Santo do dia 01/07</h1>
+                    <p class="date">01 de julho de 2026</p>
+                </div>
+                
+                <div class="badges">
+                    <span class="badge">Fidelidade</span> <span class="badge">Coragem</span> <span class="badge">Perseverança</span> <span class="badge">Caridade Pastoral</span> <span class="badge">Perdão</span> <span class="badge">Humildade</span>
+                </div>
+                
+                <div class="text">
+                    <p>São Oliver Plunkett, nascido em 1625 em Loughcrew, Irlanda, em uma família nobre, emergiu em um período de intensa perseguição católica, moldando-o para uma vida de serviço sacrificial. Sua formação inicial na Irlanda e depois em Roma, onde foi ordenado sacerdote em 1649, preparou-o para as árduas tarefas que o aguardavam. Em Roma, dedicou-se ao ensino e à consultoria, aprimorando sua teologia e sua visão pastoral em meio à turbulência política e religiosa de sua terra natal. Sua designação para um papel de liderança foi um chamado à coragem. </p>
+<p>Em 1669, foi nomeado Arcebispo de Armagh e Primaz de Toda a Irlanda, retornando clandestinamente para reorganizar uma Igreja dizimada pela perseguição. Com incansável zelo pastoral, ele viajou por toda a Irlanda, confirmando milhares, ordenando sacerdotes e estabelecendo escolas, incluindo um colégio jesuíta em Drogheda. Seu principal objetivo era fortalecer a fé e a estrutura eclesiástica, promovendo a paz e a unidade entre as facções, enquanto operava sob constante ameaça das Leis Penais. </p>
+<p>As virtudes de São Oliver eram um farol em tempos sombrios. Sua inabalável fidelidade à Igreja e ao seu rebanho, sua coragem em face do perigo iminente e sua perseverança incansável para ministrar aos fiéis são notáveis. Ele demonstrou uma caridade profunda por todos, até mesmo por seus inimigos, e uma humildade que o impedia de buscar o reconhecimento pessoal, focando-se apenas no bem das almas, sempre com um coração compassivo e generoso. </p>
+<p>Sua santidade foi selada pelo martírio. Falsamente acusado de traição durante a histeria do "Complot Papista", ele foi preso e submetido a um julgamento injusto em Londres. Apesar de sua inocência, e da impossibilidade de apresentar testemunhas de defesa irlandesas, foi condenado à morte. Em 1º de julho de 1681, em Tyburn, ele enfrentou sua execução com uma serenidade extraordinária, perdoando seus perseguidores e reafirmando sua fé e lealdade a Cristo e à Coroa. Ele foi o último mártir católico a morrer em Tyburn, tornando-se um símbolo eterno de resistência pacífica. </p>
+<p>O legado de São Oliver Plunkett ressoa poderosamente até hoje. Ele é um poderoso símbolo de fidelidade e coragem, inspirando a Igreja a permanecer firme em sua fé, mesmo em face da perseguição e da adversidade. Sua vida e morte nos lembram da importância de defender a verdade com caridade e de buscar a reconciliação. Canonizado em 1975, ele permanece como um patrono da paz, um intercessor para a Irlanda e um modelo universal de dedicação pastoral e perdão cristão, cuja memória fortalece a fé de muitos.</p>
+<blockquote class="quote">"Eu perdoo àqueles que me perseguiram, a todos os que testemunharam falsamente contra mim e a todos os que me trouxeram à morte. Que Deus lhes conceda um verdadeiro arrependimento."</blockquote>
+<p>A forma como São Oliver Plunkett viveu e morreu oferece luzes preciosas para os desafios do nosso tempo. Em um mundo frequentemente dividido por polarizações e desconfiança, sua postura de perdão e sua inabalável fidelidade à verdade e à sua missão pastoral são um farol. Ele nos ensina que a força da fé reside não na confrontação agressiva, mas na perseverança amorosa e na coragem de defender o que é justo, mesmo quando se está sozinho contra a corrente. Sua resiliência em face da adversidade é um testemunho eloquente da paz interior que emana de uma vida entregue a Deus. </p>
+<p>Ele nos convida a confrontar problemas modernos como a injustiça social, a perseguição à fé (em suas múltiplas formas, da hostilidade velada ao preconceito aberto) e a dificuldade em perdoar. Seu exemplo nos encoraja a buscar a justiça com caridade, a resistir à tentação de ceder ao ódio e à vingança, e a confiar que a verdade, mesmo que momentaneamente obscurecida, prevalecerá. São Oliver nos inspira a ser vozes proféticas em nossos próprios contextos, defendendo os valores cristãos com mansidão e firmeza, sem jamais perder a esperança. </p>
+<p>No dia a dia, podemos aplicar a sabedoria de São Oliver Plunkett ao praticar o perdão em nossas relações, buscando a unidade em nossas comunidades, e defendendo a verdade com amor, sem cair na tentação da agressão ou da indiferença. Isso significa testemunhar nossa fé com autenticidade, mesmo em ambientes desafiadores, e ter a coragem de permanecer fiéis aos princípios evangélicos, independentemente do custo pessoal. Sua vida é um convite a abraçar a reconciliação e a ser instrumentos de paz, confiando sempre na providência divina e na força transformadora do amor.</p>
+
+                </div>
+            </div>
+            
+            <div class="footer">
+                <p>
+                    <span class="emoji">🙏</span>
+                    Que esta mensagem ilumine seu dia!
+                    <span class="emoji">✨</span>
+                </p>
+            </div>
         </div>
     </div>
 </body>
