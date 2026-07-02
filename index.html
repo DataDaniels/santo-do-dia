@@ -111,7 +111,7 @@
             justify-content: center;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%);
+            background: linear-gradient(135deg, rgba(135,206,235,0.1) 0%, rgba(255,215,0,0.1) 100%);
         }
         
         .content {
@@ -314,28 +314,33 @@
     <div class="container">
         <div class="card">
             <div class="header">
-                <img src="https://source.unsplash.com/800x600/?catholic%20saint%20Santo%20do%20dia%2002/07" alt="Santo do dia 02/07" class="saint-photo" onerror="this.style.display='none'; document.querySelector('.svg-fallback').style.display='flex';">
+                <img src="https://source.unsplash.com/800x600/?Humildade%20Caridade%20F%C3%A9%20spiritual%20faith%20light%20heaven%20divine" alt="Santo do dia 02/07" class="saint-photo" onerror="this.style.display='none'; document.querySelector('.svg-fallback').style.display='flex';">
                 <div class="svg-fallback" style="display:none;">
     <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" class="saint-icon" preserveAspectRatio="xMidYMid meet">
         <defs>
-            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
-                <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#f093fb;stop-opacity:1" />
+            <!-- Gradiente dourado celestial -->
+            <linearGradient id="gradGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#ffed4e;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#ffa500;stop-opacity:1" />
             </linearGradient>
             
-            <radialGradient id="glow1" cx="50%" cy="50%">
-                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.8" />
-                <stop offset="50%" style="stop-color:#f093fb;stop-opacity:0.4" />
-                <stop offset="100%" style="stop-color:#667eea;stop-opacity:0" />
+            <!-- Gradiente azul celestial -->
+            <linearGradient id="gradBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#87ceeb;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#4682b4;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#1e90ff;stop-opacity:1" />
+            </linearGradient>
+            
+            <!-- Gradiente branco luminoso -->
+            <radialGradient id="glowWhite" cx="50%" cy="50%">
+                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#fffacd;stop-opacity:0.6" />
+                <stop offset="100%" style="stop-color:#ffd700;stop-opacity:0" />
             </radialGradient>
             
-            <filter id="blur">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="8" />
-            </filter>
-            
             <filter id="glow">
-                <feGaussianBlur stdDeviation="10" result="coloredBlur"/>
+                <feGaussianBlur stdDeviation="12" result="coloredBlur"/>
                 <feMerge>
                     <feMergeNode in="coloredBlur"/>
                     <feMergeNode in="coloredBlur"/>
@@ -344,77 +349,124 @@
             </filter>
         </defs>
         
-        <!-- Fundo com gradiente radial -->
-        <circle cx="400" cy="300" r="350" fill="url(#glow1)" opacity="0.3">
-            <animate attributeName="r" values="350;380;350" dur="4s" repeatCount="indefinite"/>
+        <!-- Fundo céu com nuvens suaves -->
+        <rect width="800" height="600" fill="url(#gradBlue)" opacity="0.3"/>
+        
+        <!-- Sol radiante central -->
+        <circle cx="400" cy="280" r="180" fill="url(#glowWhite)" opacity="0.4" filter="url(#glow)">
+            <animate attributeName="r" values="180;200;180" dur="6s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.4;0.6;0.4" dur="6s" repeatCount="indefinite"/>
         </circle>
         
-        <!-- Círculos de fundo animados -->
-        <circle cx="400" cy="300" r="280" fill="none" stroke="url(#grad1)" stroke-width="2" opacity="0.2">
-            <animate attributeName="r" values="280;300;280" dur="3s" repeatCount="indefinite"/>
+        <!-- Círculos de luz concentricos -->
+        <circle cx="400" cy="280" r="140" fill="none" stroke="url(#gradGold)" stroke-width="3" opacity="0.6">
+            <animate attributeName="r" values="140;150;140" dur="4s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="400" cy="300" r="220" fill="none" stroke="url(#grad1)" stroke-width="3" opacity="0.3">
-            <animate attributeName="r" values="220;240;220" dur="3.5s" repeatCount="indefinite"/>
+        <circle cx="400" cy="280" r="100" fill="none" stroke="url(#gradGold)" stroke-width="4" opacity="0.7">
+            <animate attributeName="r" values="100;110;100" dur="3.5s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="400" cy="300" r="160" fill="none" stroke="url(#grad1)" stroke-width="4" opacity="0.4">
-            <animate attributeName="r" values="160;180;160" dur="4s" repeatCount="indefinite"/>
+        <circle cx="400" cy="280" r="60" fill="url(#gradGold)" opacity="0.5">
+            <animate attributeName="r" values="60;70;60" dur="3s" repeatCount="indefinite"/>
         </circle>
         
-        <!-- Raios de luz (mais visíveis) -->
-        <g opacity="0.6">
-            <path d="M 400 100 L 400 50" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
-                <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
-            </path>
-            <path d="M 500 150 L 540 110" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
-                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.2s" repeatCount="indefinite"/>
-            </path>
-            <path d="M 300 150 L 260 110" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
-                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.4s" repeatCount="indefinite"/>
-            </path>
-            <path d="M 580 280 L 630 270" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
-                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.6s" repeatCount="indefinite"/>
-            </path>
-            <path d="M 220 280 L 170 270" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
-                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.8s" repeatCount="indefinite"/>
-            </path>
-        </g>
-        
-        <!-- Cruz central GRANDE com brilho forte -->
-        <g filter="url(#glow)">
-            <!-- Sombra da cruz -->
-            <rect x="385" y="160" width="30" height="280" fill="#000000" opacity="0.1" rx="15"/>
-            <rect x="280" y="265" width="240" height="30" fill="#000000" opacity="0.1" rx="15"/>
+        <!-- Raios de luz divina -->
+        <g opacity="0.7">
+            <!-- Raio 1 (topo) -->
+            <line x1="400" y1="280" x2="400" y2="80" stroke="url(#gradGold)" stroke-width="12" stroke-linecap="round" opacity="0.8">
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.5s" repeatCount="indefinite"/>
+            </line>
             
-            <!-- Cruz principal -->
-            <rect x="380" y="155" width="40" height="290" fill="url(#grad1)" rx="20">
-                <animate attributeName="opacity" values="1;0.9;1" dur="2s" repeatCount="indefinite"/>
-            </rect>
-            <rect x="275" y="260" width="250" height="40" fill="url(#grad1)" rx="20">
-                <animate attributeName="opacity" values="1;0.9;1" dur="2s" repeatCount="indefinite"/>
-            </rect>
+            <!-- Raio 2 (direita superior) -->
+            <line x1="400" y1="280" x2="560" y2="140" stroke="url(#gradGold)" stroke-width="10" stroke-linecap="round" opacity="0.7">
+                <animate attributeName="opacity" values="0.5;0.9;0.5" dur="3s" repeatCount="indefinite"/>
+            </line>
+            
+            <!-- Raio 3 (direita) -->
+            <line x1="400" y1="280" x2="620" y2="280" stroke="url(#gradGold)" stroke-width="10" stroke-linecap="round" opacity="0.7">
+                <animate attributeName="opacity" values="0.5;0.9;0.5" dur="2.8s" repeatCount="indefinite"/>
+            </line>
+            
+            <!-- Raio 4 (esquerda superior) -->
+            <line x1="400" y1="280" x2="240" y2="140" stroke="url(#gradGold)" stroke-width="10" stroke-linecap="round" opacity="0.7">
+                <animate attributeName="opacity" values="0.5;0.9;0.5" dur="3.2s" repeatCount="indefinite"/>
+            </line>
+            
+            <!-- Raio 5 (esquerda) -->
+            <line x1="400" y1="280" x2="180" y2="280" stroke="url(#gradGold)" stroke-width="10" stroke-linecap="round" opacity="0.7">
+                <animate attributeName="opacity" values="0.5;0.9;0.5" dur="2.6s" repeatCount="indefinite"/>
+            </line>
+            
+            <!-- Raio 6 (diagonal inferior direita) -->
+            <line x1="400" y1="280" x2="540" y2="420" stroke="url(#gradGold)" stroke-width="8" stroke-linecap="round" opacity="0.6">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3.5s" repeatCount="indefinite"/>
+            </line>
+            
+            <!-- Raio 7 (diagonal inferior esquerda) -->
+            <line x1="400" y1="280" x2="260" y2="420" stroke="url(#gradGold)" stroke-width="8" stroke-linecap="round" opacity="0.6">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3.3s" repeatCount="indefinite"/>
+            </line>
         </g>
         
-        <!-- Auréola grande -->
-        <circle cx="400" cy="200" r="120" fill="none" stroke="url(#grad1)" stroke-width="12" opacity="0.7" filter="url(#glow)">
-            <animate attributeName="r" values="120;125;120" dur="3s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="0.7;0.9;0.7" dur="3s" repeatCount="indefinite"/>
-        </circle>
-        
-        <!-- Estrelas decorativas -->
-        <g fill="url(#grad1)" opacity="0.8">
-            <circle cx="300" cy="120" r="6">
-                <animate attributeName="opacity" values="0.8;1;0.8" dur="1.5s" repeatCount="indefinite"/>
+        <!-- Estrelas decorativas douradas -->
+        <g fill="url(#gradGold)">
+            <!-- Estrela 1 -->
+            <circle cx="200" cy="150" r="8" opacity="0.9">
+                <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+                <animate attributeName="r" values="8;10;8" dur="2s" repeatCount="indefinite"/>
             </circle>
-            <circle cx="500" cy="130" r="8">
-                <animate attributeName="opacity" values="0.8;1;0.8" dur="1.8s" repeatCount="indefinite"/>
+            
+            <!-- Estrela 2 -->
+            <circle cx="600" cy="170" r="10" opacity="0.9">
+                <animate attributeName="opacity" values="0.5;1;0.5" dur="2.5s" repeatCount="indefinite"/>
+                <animate attributeName="r" values="10;12;10" dur="2.5s" repeatCount="indefinite"/>
             </circle>
-            <circle cx="250" cy="250" r="5">
-                <animate attributeName="opacity" values="0.8;1;0.8" dur="2.1s" repeatCount="indefinite"/>
+            
+            <!-- Estrela 3 -->
+            <circle cx="280" cy="380" r="7" opacity="0.9">
+                <animate attributeName="opacity" values="0.5;1;0.5" dur="2.2s" repeatCount="indefinite"/>
+                <animate attributeName="r" values="7;9;7" dur="2.2s" repeatCount="indefinite"/>
             </circle>
-            <circle cx="550" cy="240" r="7">
-                <animate attributeName="opacity" values="0.8;1;0.8" dur="2.4s" repeatCount="indefinite"/>
+            
+            <!-- Estrela 4 -->
+            <circle cx="520" cy="400" r="9" opacity="0.9">
+                <animate attributeName="opacity" values="0.5;1;0.5" dur="2.7s" repeatCount="indefinite"/>
+                <animate attributeName="r" values="9;11;9" dur="2.7s" repeatCount="indefinite"/>
+            </circle>
+            
+            <!-- Estrela 5 -->
+            <circle cx="150" cy="280" r="6" opacity="0.9">
+                <animate attributeName="opacity" values="0.5;1;0.5" dur="2.3s" repeatCount="indefinite"/>
+                <animate attributeName="r" values="6;8;6" dur="2.3s" repeatCount="indefinite"/>
+            </circle>
+            
+            <!-- Estrela 6 -->
+            <circle cx="650" cy="300" r="6" opacity="0.9">
+                <animate attributeName="opacity" values="0.5;1;0.5" dur="2.4s" repeatCount="indefinite"/>
+                <animate attributeName="r" values="6;8;6" dur="2.4s" repeatCount="indefinite"/>
             </circle>
         </g>
+        
+        <!-- Pontos de luz brilhantes -->
+        <g fill="#ffffff">
+            <circle cx="340" cy="200" r="3">
+                <animate attributeName="opacity" values="0;1;0" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="460" cy="210" r="3">
+                <animate attributeName="opacity" values="0;1;0" dur="1.8s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="370" cy="350" r="3">
+                <animate attributeName="opacity" values="0;1;0" dur="2.1s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="430" cy="360" r="3">
+                <animate attributeName="opacity" values="0;1;0" dur="1.6s" repeatCount="indefinite"/>
+            </circle>
+        </g>
+        
+        <!-- Texto inspirador (opcional) -->
+        <text x="400" y="520" font-family="Georgia, serif" font-size="24" fill="url(#gradGold)" text-anchor="middle" opacity="0.8" font-style="italic">
+            ✨ Luz Divina ✨
+            <animate attributeName="opacity" values="0.6;1;0.6" dur="3s" repeatCount="indefinite"/>
+        </text>
     </svg>
     </div>
             </div>
@@ -426,15 +478,19 @@
                 </div>
                 
                 <div class="badges">
-                    <span class="badge">Humildade</span> <span class="badge">Caridade</span> <span class="badge">Zelo apostólico</span> <span class="badge">Penitência</span> <span class="badge">Obediência</span> <span class="badge">Despojamento</span>
+                    <span class="badge">Humildade</span> <span class="badge">Caridade</span> <span class="badge">Fé</span> <span class="badge">Zelo</span> <span class="badge">Discernimento</span> <span class="badge">Perseverança</span>
                 </div>
                 
                 <div class="text">
-                    <p>São Bernardino Realino nasceu em Carpi, Itália, em 1530, em uma família nobre. Sua juventude foi marcada por uma educação esmerada em direito e uma promissora carreira secular. Exerceu cargos de magistrado e governador em diversas cidades do Reino de Nápoles, demonstrando grande competência e justiça em suas funções administrativas. Ele viveu em um período efervescente da história da Igreja, o Concílio de Trento e a Contrarreforma, o que indiretamente preparava o cenário para sua futura vocação, ainda que sua vida inicial não fosse de especial piedade, mas de retidão cívica.</p>
-<blockquote class="quote">"Senhor, a quem devo procurar senão a vós? A vós devo amar com toda a minha alma, e só a vós quero servir."</blockquote>
-<p>São Bernardino Realino nos mostra que a santidade não é exclusiva de uma fase da vida ou de uma vocação pré-determinada. Sua conversão em idade adulta e a renúncia a uma carreira promissora para abraçar a vida religiosa nos lembram que nunca é tarde para reorientar nossas vidas para o que realmente importa. Sua capacidade de ouvir o chamado divino e agir com coragem e determinação é um farol para quem busca propósito e significado em meio às distrações e exigências do mundo contemporâneo. Ele nos convida a considerar onde estamos investindo nossas energias e paixões mais profundas.</p>
-<p>No mundo atual, marcado pelo individualismo, pela busca incessante por sucesso material e pelo desejo de reconhecimento, o exemplo de São Bernardino confronta a superficialidade e a efemeridade. Ele nos desafia a olhar para além das aparências, a valorizar o serviço desinteressado aos mais necessitados e a encontrar a verdadeira riqueza na entrega a Deus e ao próximo. Sua vida nos oferece uma bússola contra a alienação e a ansiedade modernas, apontando para a alegria profunda de uma vida dedicada à fé e à construção de comunidades mais fraternas e justas.</p>
-<p>Na prática, a vida de São Bernardino nos inspira a cultivar uma escuta atenta à nossa própria consciência e ao chamado de Deus, seja qual for nossa idade, profissão ou circunstância. Podemos aplicar seu zelo apostólico em nosso próprio ambiente, dedicando tempo e talentos para servir aos outros, seja na família, no trabalho ou na comunidade. Seu desapego das glórias terrenas nos encoraja a buscar uma vida mais simples e focada no essencial, encontrando satisfação nas pequenas ações de amor, na busca pela verdade e na construção de um legado que transcende os bens materiais.</p>
+                    <p>Nascido em Carpi, Itália, em 1538, Bernardino Realino viveu em um período de intensa efervescência religiosa e cultural, a era da Contrarreforma. Desde jovem, demonstrou grande inteligência e talento, o que o levou a estudar direito na renomada Universidade de Bolonha. Sua brilhante carreira acadêmica o impulsionou a cargos de destaque, tornando-se um advogado bem-sucedido e, posteriormente, prefeito em Felizzano e Chieti. Sua vida parecia destinada ao brilho mundano, mas um chamado mais profundo aguardava seu coração. </p>
+<p>Em 1564, durante um período de oração, Bernardino teve uma visão que mudaria para sempre o curso de sua vida: a Virgem Maria e o Menino Jesus o convidavam a uma vida de maior dedicação. Aos 34 anos, ele renunciou à sua promissora carreira jurídica e ingressou na Companhia de Jesus, a ordem dos jesuítas, abraçando uma vida de radical serviço a Deus. Ordenado sacerdote, foi enviado a Nápoles, cidade onde permaneceria pelo resto de seus dias e onde deixaria uma marca indelével. Tornou-se um confessor procurado, um pregador eloquente e um diretor espiritual perspicaz, conhecido por sua profunda sabedoria e compaixão.</p>
+<p>Santo Bernardino Realino destacou-se por uma série de virtudes admiráveis. Sua humildade era notável, especialmente considerando seu passado intelectual e social. Possuía uma fé inabalável, que o sustentava em seu ministério e inspirava aqueles ao seu redor. Acima de tudo, sua caridade era lendária; ele dedicou-se incansavelmente aos mais pobres, aos doentes e aos prisioneiros de Nápoles, ganhando o afetuoso título de "Apóstolo de Nápoles". Seu zelo pelas almas era evidente em cada sermão, em cada conselho e em cada ato de serviço.</p>
+<p>Ele alcançou a santidade através de sua completa entrega a Cristo e ao Evangelho, traduzindo o ideal jesuíta de "Ad Majorem Dei Gloriam" (Para a Maior Glória de Deus) em ações concretas. Sua santidade não foi fruto de um único evento milagroso, mas sim de uma vida de constante autonegação, oração profunda e serviço abnegado. Por mais de 40 anos em Nápoles, ele perseverou em sua missão, superando desafios e convertendo corações com seu exemplo e suas palavras, demonstrando que a santidade é um caminho de fidelidade diária e amor incessante.</p>
+<p>O legado de Santo Bernardino Realino para a Igreja é um testemunho perene de como os talentos intelectuais e humanos podem ser plenamente consagrados a Deus. Ele deixou um modelo inspirador para sacerdotes e leigos sobre a importância da direção espiritual, da catequese e da caridade prática. Sua memória permanece viva em Nápoles, onde é venerado como patrono secundário, e em toda a Igreja, como um exemplo de sacerdote zeloso que, através da oração e do serviço, transformou uma cidade e continua a inspirar incontáveis almas a buscar uma vida mais plena em Cristo.</p>
+<blockquote class="quote">"O meu único desejo é agradar a Deus e salvar almas."</blockquote>
+<p>A vida de Santo Bernardino Realino, com sua radical conversão de um bem-sucedido jurista a um humilde jesuíta, oferece uma luz poderosa para o nosso tempo. Em um mundo que muitas vezes nos pressiona a buscar validação externa e sucesso material, sua história nos convida a reavaliar o que realmente importa. Ele nos lembra que a verdadeira realização e a alegria duradoura são encontradas na entrega a um propósito maior, na conexão com o divino e no serviço desinteressado aos outros, mostrando que a qualquer momento podemos redirecionar nossa jornada.</p>
+<p>Bernardino é um farol para enfrentar o individualismo e a superficialidade que, por vezes, marcam nossa sociedade. Sua dedicação aos marginalizados e seu empenho em usar seus dons para o bem comum nos inspiram a olhar além de nossas próprias necessidades, a estender a mão aos que sofrem e a contribuir ativamente para a construção de um mundo mais compassivo. Seu exemplo de diretor espiritual nos desafia a buscar a sabedoria em tempos de incerteza e a oferecer orientação baseada no amor e na verdade.</p>
+<p>No dia a dia, podemos aplicar os ensinamentos de Bernardino cultivando uma vida interior rica, mesmo em meio à agitação. Isso pode significar dedicar tempo para a oração e a meditação, praticar atos de caridade — grandes ou pequenos — em nossas comunidades, e usar nossas habilidades e profissões para servir ao próximo e promover a justiça. Sua trajetória nos encoraja a viver a santidade na fidelidade às pequenas tarefas, no amor ao próximo e na busca constante por agradar a Deus em tudo o que fazemos.</p>
 
                 </div>
             </div>
