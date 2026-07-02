@@ -2,8 +2,8 @@ name: Santo do Dia - Atualização Diária
 
 on:
   schedule:
-    # Roda todo dia às 08:00 UTC (05:00 BRT)
-    - cron: '0 8 * * *'
+    # Roda todo dia às 4:00 UTC (01:00 BRT)
+    - cron: '0 4 * * *'
   
   workflow_dispatch:  # Permite executar manualmente
 
