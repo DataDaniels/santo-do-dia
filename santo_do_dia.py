@@ -14,9 +14,6 @@ GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
 # Timezone do Brasil
 BRASIL_TZ = ZoneInfo("America/Sao_Paulo")
 
-# Unsplash (sem necessidade de API key para basic usage)
-UNSPLASH_API = "https://source.unsplash.com/800x600/"
-
 # ========== FUNÇÕES ==========
 
 def buscar_santo_do_dia():
@@ -45,42 +42,63 @@ def buscar_santo_do_dia():
         'fonte': 'Base local'
     }
 
-def buscar_imagem_santo(nome_santo):
-    """Busca imagem do santo via Unsplash"""
+def buscar_imagem_santo(nome_santo, virtudes=None):
+    """Busca imagem do santo via Unsplash
+    
+    Estratégia:
+    1. Tenta buscar foto do santo
+    2. Se virtudes fornecidas, busca imagem relacionada às virtudes
+    """
     try:
-        # Termos de busca: santo católico + nome
-        query = f"catholic saint {nome_santo}"
-        # Usa source.unsplash.com (sem API key necessária)
-        url = f"https://source.unsplash.com/800x600/?{urllib.parse.quote(query)}"
-        print(f"🖼️ Buscando imagem: {query}")
-        return url
+        # Primeira tentativa: buscar pelo nome do santo
+        query_santo = f"catholic saint {nome_santo} painting art religious"
+        url_santo = f"https://source.unsplash.com/800x600/?{urllib.parse.quote(query_santo)}"
+        print(f"🖼️ Buscando imagem do santo: {query_santo}")
+        
+        # Se temos virtudes, cria URL alternativa baseada nelas
+        if virtudes and len(virtudes) > 0:
+            # Pega as 3 primeiras virtudes
+            virtudes_texto = ' '.join(virtudes[:3])
+            query_virtudes = f"{virtudes_texto} spiritual faith light heaven divine"
+            url_virtudes = f"https://source.unsplash.com/800x600/?{urllib.parse.quote(query_virtudes)}"
+            print(f"🎨 Alternativa baseada em virtudes: {query_virtudes}")
+            # Retorna URL das virtudes (mais genérica e bonita)
+            return url_virtudes
+        
+        return url_santo
+        
     except Exception as e:
         print(f"⚠️ Erro ao buscar imagem: {e}")
         return None
 
 def gerar_svg_fallback():
-    """Gera SVG decorativo GRANDE e impactante"""
+    """Gera SVG decorativo celestial (SEM cruz roxa!)"""
     return '''
     <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" class="saint-icon" preserveAspectRatio="xMidYMid meet">
         <defs>
-            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
-                <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#f093fb;stop-opacity:1" />
+            <!-- Gradiente dourado celestial -->
+            <linearGradient id="gradGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#ffed4e;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#ffa500;stop-opacity:1" />
             </linearGradient>
             
-            <radialGradient id="glow1" cx="50%" cy="50%">
-                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.8" />
-                <stop offset="50%" style="stop-color:#f093fb;stop-opacity:0.4" />
-                <stop offset="100%" style="stop-color:#667eea;stop-opacity:0" />
+            <!-- Gradiente azul celestial -->
+            <linearGradient id="gradBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#87ceeb;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#4682b4;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#1e90ff;stop-opacity:1" />
+            </linearGradient>
+            
+            <!-- Gradiente branco luminoso -->
+            <radialGradient id="glowWhite" cx="50%" cy="50%">
+                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#fffacd;stop-opacity:0.6" />
+                <stop offset="100%" style="stop-color:#ffd700;stop-opacity:0" />
             </radialGradient>
             
-            <filter id="blur">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="8" />
-            </filter>
-            
             <filter id="glow">
-                <feGaussianBlur stdDeviation="10" result="coloredBlur"/>
+                <feGaussianBlur stdDeviation="12" result="coloredBlur"/>
                 <feMerge>
                     <feMergeNode in="coloredBlur"/>
                     <feMergeNode in="coloredBlur"/>
@@ -89,77 +107,124 @@ def gerar_svg_fallback():
             </filter>
         </defs>
         
-        <!-- Fundo com gradiente radial -->
-        <circle cx="400" cy="300" r="350" fill="url(#glow1)" opacity="0.3">
-            <animate attributeName="r" values="350;380;350" dur="4s" repeatCount="indefinite"/>
+        <!-- Fundo céu com nuvens suaves -->
+        <rect width="800" height="600" fill="url(#gradBlue)" opacity="0.3"/>
+        
+        <!-- Sol radiante central -->
+        <circle cx="400" cy="280" r="180" fill="url(#glowWhite)" opacity="0.4" filter="url(#glow)">
+            <animate attributeName="r" values="180;200;180" dur="6s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.4;0.6;0.4" dur="6s" repeatCount="indefinite"/>
         </circle>
         
-        <!-- Círculos de fundo animados -->
-        <circle cx="400" cy="300" r="280" fill="none" stroke="url(#grad1)" stroke-width="2" opacity="0.2">
-            <animate attributeName="r" values="280;300;280" dur="3s" repeatCount="indefinite"/>
+        <!-- Círculos de luz concentricos -->
+        <circle cx="400" cy="280" r="140" fill="none" stroke="url(#gradGold)" stroke-width="3" opacity="0.6">
+            <animate attributeName="r" values="140;150;140" dur="4s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="400" cy="300" r="220" fill="none" stroke="url(#grad1)" stroke-width="3" opacity="0.3">
-            <animate attributeName="r" values="220;240;220" dur="3.5s" repeatCount="indefinite"/>
+        <circle cx="400" cy="280" r="100" fill="none" stroke="url(#gradGold)" stroke-width="4" opacity="0.7">
+            <animate attributeName="r" values="100;110;100" dur="3.5s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="400" cy="300" r="160" fill="none" stroke="url(#grad1)" stroke-width="4" opacity="0.4">
-            <animate attributeName="r" values="160;180;160" dur="4s" repeatCount="indefinite"/>
+        <circle cx="400" cy="280" r="60" fill="url(#gradGold)" opacity="0.5">
+            <animate attributeName="r" values="60;70;60" dur="3s" repeatCount="indefinite"/>
         </circle>
         
-        <!-- Raios de luz (mais visíveis) -->
-        <g opacity="0.6">
-            <path d="M 400 100 L 400 50" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
-                <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
-            </path>
-            <path d="M 500 150 L 540 110" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
-                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.2s" repeatCount="indefinite"/>
-            </path>
-            <path d="M 300 150 L 260 110" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
-                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.4s" repeatCount="indefinite"/>
-            </path>
-            <path d="M 580 280 L 630 270" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
-                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.6s" repeatCount="indefinite"/>
-            </path>
-            <path d="M 220 280 L 170 270" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
-                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.8s" repeatCount="indefinite"/>
-            </path>
-        </g>
-        
-        <!-- Cruz central GRANDE com brilho forte -->
-        <g filter="url(#glow)">
-            <!-- Sombra da cruz -->
-            <rect x="385" y="160" width="30" height="280" fill="#000000" opacity="0.1" rx="15"/>
-            <rect x="280" y="265" width="240" height="30" fill="#000000" opacity="0.1" rx="15"/>
+        <!-- Raios de luz divina -->
+        <g opacity="0.7">
+            <!-- Raio 1 (topo) -->
+            <line x1="400" y1="280" x2="400" y2="80" stroke="url(#gradGold)" stroke-width="12" stroke-linecap="round" opacity="0.8">
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.5s" repeatCount="indefinite"/>
+            </line>
             
-            <!-- Cruz principal -->
-            <rect x="380" y="155" width="40" height="290" fill="url(#grad1)" rx="20">
-                <animate attributeName="opacity" values="1;0.9;1" dur="2s" repeatCount="indefinite"/>
-            </rect>
-            <rect x="275" y="260" width="250" height="40" fill="url(#grad1)" rx="20">
-                <animate attributeName="opacity" values="1;0.9;1" dur="2s" repeatCount="indefinite"/>
-            </rect>
+            <!-- Raio 2 (direita superior) -->
+            <line x1="400" y1="280" x2="560" y2="140" stroke="url(#gradGold)" stroke-width="10" stroke-linecap="round" opacity="0.7">
+                <animate attributeName="opacity" values="0.5;0.9;0.5" dur="3s" repeatCount="indefinite"/>
+            </line>
+            
+            <!-- Raio 3 (direita) -->
+            <line x1="400" y1="280" x2="620" y2="280" stroke="url(#gradGold)" stroke-width="10" stroke-linecap="round" opacity="0.7">
+                <animate attributeName="opacity" values="0.5;0.9;0.5" dur="2.8s" repeatCount="indefinite"/>
+            </line>
+            
+            <!-- Raio 4 (esquerda superior) -->
+            <line x1="400" y1="280" x2="240" y2="140" stroke="url(#gradGold)" stroke-width="10" stroke-linecap="round" opacity="0.7">
+                <animate attributeName="opacity" values="0.5;0.9;0.5" dur="3.2s" repeatCount="indefinite"/>
+            </line>
+            
+            <!-- Raio 5 (esquerda) -->
+            <line x1="400" y1="280" x2="180" y2="280" stroke="url(#gradGold)" stroke-width="10" stroke-linecap="round" opacity="0.7">
+                <animate attributeName="opacity" values="0.5;0.9;0.5" dur="2.6s" repeatCount="indefinite"/>
+            </line>
+            
+            <!-- Raio 6 (diagonal inferior direita) -->
+            <line x1="400" y1="280" x2="540" y2="420" stroke="url(#gradGold)" stroke-width="8" stroke-linecap="round" opacity="0.6">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3.5s" repeatCount="indefinite"/>
+            </line>
+            
+            <!-- Raio 7 (diagonal inferior esquerda) -->
+            <line x1="400" y1="280" x2="260" y2="420" stroke="url(#gradGold)" stroke-width="8" stroke-linecap="round" opacity="0.6">
+                <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3.3s" repeatCount="indefinite"/>
+            </line>
         </g>
         
-        <!-- Auréola grande -->
-        <circle cx="400" cy="200" r="120" fill="none" stroke="url(#grad1)" stroke-width="12" opacity="0.7" filter="url(#glow)">
-            <animate attributeName="r" values="120;125;120" dur="3s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="0.7;0.9;0.7" dur="3s" repeatCount="indefinite"/>
-        </circle>
-        
-        <!-- Estrelas decorativas -->
-        <g fill="url(#grad1)" opacity="0.8">
-            <circle cx="300" cy="120" r="6">
-                <animate attributeName="opacity" values="0.8;1;0.8" dur="1.5s" repeatCount="indefinite"/>
+        <!-- Estrelas decorativas douradas -->
+        <g fill="url(#gradGold)">
+            <!-- Estrela 1 -->
+            <circle cx="200" cy="150" r="8" opacity="0.9">
+                <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+                <animate attributeName="r" values="8;10;8" dur="2s" repeatCount="indefinite"/>
             </circle>
-            <circle cx="500" cy="130" r="8">
-                <animate attributeName="opacity" values="0.8;1;0.8" dur="1.8s" repeatCount="indefinite"/>
+            
+            <!-- Estrela 2 -->
+            <circle cx="600" cy="170" r="10" opacity="0.9">
+                <animate attributeName="opacity" values="0.5;1;0.5" dur="2.5s" repeatCount="indefinite"/>
+                <animate attributeName="r" values="10;12;10" dur="2.5s" repeatCount="indefinite"/>
             </circle>
-            <circle cx="250" cy="250" r="5">
-                <animate attributeName="opacity" values="0.8;1;0.8" dur="2.1s" repeatCount="indefinite"/>
+            
+            <!-- Estrela 3 -->
+            <circle cx="280" cy="380" r="7" opacity="0.9">
+                <animate attributeName="opacity" values="0.5;1;0.5" dur="2.2s" repeatCount="indefinite"/>
+                <animate attributeName="r" values="7;9;7" dur="2.2s" repeatCount="indefinite"/>
             </circle>
-            <circle cx="550" cy="240" r="7">
-                <animate attributeName="opacity" values="0.8;1;0.8" dur="2.4s" repeatCount="indefinite"/>
+            
+            <!-- Estrela 4 -->
+            <circle cx="520" cy="400" r="9" opacity="0.9">
+                <animate attributeName="opacity" values="0.5;1;0.5" dur="2.7s" repeatCount="indefinite"/>
+                <animate attributeName="r" values="9;11;9" dur="2.7s" repeatCount="indefinite"/>
+            </circle>
+            
+            <!-- Estrela 5 -->
+            <circle cx="150" cy="280" r="6" opacity="0.9">
+                <animate attributeName="opacity" values="0.5;1;0.5" dur="2.3s" repeatCount="indefinite"/>
+                <animate attributeName="r" values="6;8;6" dur="2.3s" repeatCount="indefinite"/>
+            </circle>
+            
+            <!-- Estrela 6 -->
+            <circle cx="650" cy="300" r="6" opacity="0.9">
+                <animate attributeName="opacity" values="0.5;1;0.5" dur="2.4s" repeatCount="indefinite"/>
+                <animate attributeName="r" values="6;8;6" dur="2.4s" repeatCount="indefinite"/>
             </circle>
         </g>
+        
+        <!-- Pontos de luz brilhantes -->
+        <g fill="#ffffff">
+            <circle cx="340" cy="200" r="3">
+                <animate attributeName="opacity" values="0;1;0" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="460" cy="210" r="3">
+                <animate attributeName="opacity" values="0;1;0" dur="1.8s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="370" cy="350" r="3">
+                <animate attributeName="opacity" values="0;1;0" dur="2.1s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="430" cy="360" r="3">
+                <animate attributeName="opacity" values="0;1;0" dur="1.6s" repeatCount="indefinite"/>
+            </circle>
+        </g>
+        
+        <!-- Texto inspirador (opcional) -->
+        <text x="400" y="520" font-family="Georgia, serif" font-size="24" fill="url(#gradGold)" text-anchor="middle" opacity="0.8" font-style="italic">
+            ✨ Luz Divina ✨
+            <animate attributeName="opacity" values="0.6;1;0.6" dur="3s" repeatCount="indefinite"/>
+        </text>
     </svg>
     '''
 
@@ -183,7 +248,7 @@ Crie um JSON com:
 
 2. "frase": Citação marcante do santo (ou sobre ele)
 
-3. "virtudes": Array com 4-6 virtudes principais
+3. "virtudes": Array com 4-6 virtudes principais (palavras únicas como "Humildade", "Caridade", "Fé")
 
 4. "reflexao": Reflexão em 3 parágrafos conectando o santo com desafios modernos:
    - Como o jeito de ser do santo é relevante hoje
@@ -387,7 +452,7 @@ def gerar_html(santo, conteudo, imagem_url=None):
             justify-content: center;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%);
+            background: linear-gradient(135deg, rgba(135,206,235,0.1) 0%, rgba(255,215,0,0.1) 100%);
         }}
         
         .content {{
@@ -638,19 +703,19 @@ if __name__ == "__main__":
         print(f"📡 Fonte: {santo['fonte']}")
         print("")
         
-        # 2. Buscar imagem
-        imagem_url = buscar_imagem_santo(santo['nome'])
-        if imagem_url:
-            print(f"✅ Imagem: {imagem_url}")
-        else:
-            print(f"ℹ️ Usando ícone SVG (imagem não encontrada)")
-        print("")
-        
-        # 3. Gerar conteúdo IA
+        # 2. Gerar conteúdo IA (para ter virtudes)
         conteudo = gerar_conteudo_ia(santo['nome'])
         print(f"📊 Biografia: {len(conteudo['biografia'])} chars")
         print(f"📊 Reflexão: {len(conteudo['reflexao'])} chars")
         print(f"📊 Virtudes: {len(conteudo.get('virtudes', []))} itens")
+        print("")
+        
+        # 3. Buscar imagem (com virtudes!)
+        imagem_url = buscar_imagem_santo(santo['nome'], conteudo.get('virtudes', []))
+        if imagem_url:
+            print(f"✅ Imagem: {imagem_url}")
+        else:
+            print(f"ℹ️ Usando ícone SVG celestial")
         print("")
         
         # 4. Gerar HTML
