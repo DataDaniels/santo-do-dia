@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santo do dia 01/07 - Santo do Dia</title>
-    <meta name="description" content="Conheça a história de Santo do dia 01/07 e uma reflexão para seu dia">
+    <title>Santo do dia 02/07 - Santo do Dia</title>
+    <meta name="description" content="Conheça a história de Santo do dia 02/07 e uma reflexão para seu dia">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
         
@@ -21,6 +21,19 @@
             --text-dark: #2d3748;
             --text-light: #4a5568;
             --bg-light: #f7fafc;
+            --card-bg: #ffffff;
+            --footer-bg: rgba(102,126,234,0.05);
+        }
+        
+        /* Dark Mode */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-dark: #e2e8f0;
+                --text-light: #cbd5e0;
+                --bg-light: #1a202c;
+                --card-bg: #2d3748;
+                --footer-bg: rgba(102,126,234,0.15);
+            }
         }
         
         body {
@@ -45,10 +58,10 @@
         }
         
         .card {
-            background: white;
+            background: var(--card-bg);
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
             animation: fadeInUp 0.8s ease;
             margin-top: 20px;
         }
@@ -86,9 +99,10 @@
         }
         
         .saint-icon {
-            width: 300px;
-            height: 300px;
-            animation: float 6s ease-in-out infinite;
+            width: 100%;
+            height: 100%;
+            max-width: 800px;
+            max-height: 600px;
         }
         
         .svg-fallback {
@@ -97,11 +111,7 @@
             justify-content: center;
             width: 100%;
             height: 100%;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+            background: linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%);
         }
         
         .content {
@@ -192,6 +202,13 @@
             box-shadow: 0 4px 20px rgba(118,75,162,0.1);
         }
         
+        @media (prefers-color-scheme: dark) {
+            .quote {
+                background: linear-gradient(135deg, rgba(102,126,234,0.2) 0%, rgba(118,75,162,0.2) 100%);
+                color: var(--accent);
+            }
+        }
+        
         .quote::before {
             content: '"';
             font-size: 4em;
@@ -206,7 +223,7 @@
         .footer {
             text-align: center;
             padding: 40px 50px;
-            background: linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%);
+            background: var(--footer-bg);
             border-top: 1px solid rgba(118,75,162,0.1);
             animation: fadeIn 1s ease 0.9s both;
         }
@@ -244,11 +261,6 @@
             
             .header {
                 height: 300px;
-            }
-            
-            .saint-icon {
-                width: 200px;
-                height: 200px;
             }
             
             .content {
@@ -296,77 +308,133 @@
                 font-size: 1em;
             }
         }
-        
-        /* Animação de entrada suave */
-        @media (prefers-reduced-motion: no-preference) {
-            .card {
-                animation: fadeInUp 0.8s ease;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="card">
             <div class="header">
-                <img src="https://source.unsplash.com/800x600/?catholic%20saint%20Santo%20do%20dia%2001/07" alt="Santo do dia 01/07" class="saint-photo" onerror="this.style.display='none'; document.querySelector('.svg-fallback').style.display='block';">
+                <img src="https://source.unsplash.com/800x600/?catholic%20saint%20Santo%20do%20dia%2002/07" alt="Santo do dia 02/07" class="saint-photo" onerror="this.style.display='none'; document.querySelector('.svg-fallback').style.display='flex';">
                 <div class="svg-fallback" style="display:none;">
-    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="saint-icon">
+    <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" class="saint-icon" preserveAspectRatio="xMidYMid meet">
         <defs>
             <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#f093fb;stop-opacity:1" />
             </linearGradient>
+            
+            <radialGradient id="glow1" cx="50%" cy="50%">
+                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.8" />
+                <stop offset="50%" style="stop-color:#f093fb;stop-opacity:0.4" />
+                <stop offset="100%" style="stop-color:#667eea;stop-opacity:0" />
+            </radialGradient>
+            
+            <filter id="blur">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="8" />
+            </filter>
+            
             <filter id="glow">
-                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                <feGaussianBlur stdDeviation="10" result="coloredBlur"/>
                 <feMerge>
+                    <feMergeNode in="coloredBlur"/>
                     <feMergeNode in="coloredBlur"/>
                     <feMergeNode in="SourceGraphic"/>
                 </feMerge>
             </filter>
         </defs>
         
-        <!-- Círculo de fundo -->
-        <circle cx="200" cy="200" r="180" fill="url(#grad1)" opacity="0.1"/>
-        <circle cx="200" cy="200" r="150" fill="url(#grad1)" opacity="0.2"/>
+        <!-- Fundo com gradiente radial -->
+        <circle cx="400" cy="300" r="350" fill="url(#glow1)" opacity="0.3">
+            <animate attributeName="r" values="350;380;350" dur="4s" repeatCount="indefinite"/>
+        </circle>
         
-        <!-- Cruz central com brilho -->
-        <g filter="url(#glow)">
-            <rect x="185" y="120" width="30" height="160" fill="url(#grad1)" rx="15"/>
-            <rect x="130" y="175" width="140" height="30" fill="url(#grad1)" rx="15"/>
+        <!-- Círculos de fundo animados -->
+        <circle cx="400" cy="300" r="280" fill="none" stroke="url(#grad1)" stroke-width="2" opacity="0.2">
+            <animate attributeName="r" values="280;300;280" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="400" cy="300" r="220" fill="none" stroke="url(#grad1)" stroke-width="3" opacity="0.3">
+            <animate attributeName="r" values="220;240;220" dur="3.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="400" cy="300" r="160" fill="none" stroke="url(#grad1)" stroke-width="4" opacity="0.4">
+            <animate attributeName="r" values="160;180;160" dur="4s" repeatCount="indefinite"/>
+        </circle>
+        
+        <!-- Raios de luz (mais visíveis) -->
+        <g opacity="0.6">
+            <path d="M 400 100 L 400 50" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+            </path>
+            <path d="M 500 150 L 540 110" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.2s" repeatCount="indefinite"/>
+            </path>
+            <path d="M 300 150 L 260 110" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.4s" repeatCount="indefinite"/>
+            </path>
+            <path d="M 580 280 L 630 270" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.6s" repeatCount="indefinite"/>
+            </path>
+            <path d="M 220 280 L 170 270" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.8s" repeatCount="indefinite"/>
+            </path>
         </g>
         
-        <!-- Auréola -->
-        <circle cx="200" cy="140" r="60" fill="none" stroke="url(#grad1)" stroke-width="6" opacity="0.6"/>
+        <!-- Cruz central GRANDE com brilho forte -->
+        <g filter="url(#glow)">
+            <!-- Sombra da cruz -->
+            <rect x="385" y="160" width="30" height="280" fill="#000000" opacity="0.1" rx="15"/>
+            <rect x="280" y="265" width="240" height="30" fill="#000000" opacity="0.1" rx="15"/>
+            
+            <!-- Cruz principal -->
+            <rect x="380" y="155" width="40" height="290" fill="url(#grad1)" rx="20">
+                <animate attributeName="opacity" values="1;0.9;1" dur="2s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="275" y="260" width="250" height="40" fill="url(#grad1)" rx="20">
+                <animate attributeName="opacity" values="1;0.9;1" dur="2s" repeatCount="indefinite"/>
+            </rect>
+        </g>
         
-        <!-- Raios de luz -->
-        <path d="M 200 80 L 200 40" stroke="url(#grad1)" stroke-width="4" opacity="0.5"/>
-        <path d="M 240 100 L 260 70" stroke="url(#grad1)" stroke-width="4" opacity="0.5"/>
-        <path d="M 160 100 L 140 70" stroke="url(#grad1)" stroke-width="4" opacity="0.5"/>
+        <!-- Auréola grande -->
+        <circle cx="400" cy="200" r="120" fill="none" stroke="url(#grad1)" stroke-width="12" opacity="0.7" filter="url(#glow)">
+            <animate attributeName="r" values="120;125;120" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.7;0.9;0.7" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        
+        <!-- Estrelas decorativas -->
+        <g fill="url(#grad1)" opacity="0.8">
+            <circle cx="300" cy="120" r="6">
+                <animate attributeName="opacity" values="0.8;1;0.8" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="500" cy="130" r="8">
+                <animate attributeName="opacity" values="0.8;1;0.8" dur="1.8s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="250" cy="250" r="5">
+                <animate attributeName="opacity" values="0.8;1;0.8" dur="2.1s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="550" cy="240" r="7">
+                <animate attributeName="opacity" values="0.8;1;0.8" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+        </g>
     </svg>
     </div>
             </div>
             
             <div class="content">
                 <div class="title-section">
-                    <h1>Santo do dia 01/07</h1>
-                    <p class="date">01 de julho de 2026</p>
+                    <h1>Santo do dia 02/07</h1>
+                    <p class="date">02 de julho de 2026</p>
                 </div>
                 
                 <div class="badges">
-                    <span class="badge">Fidelidade</span> <span class="badge">Coragem</span> <span class="badge">Perseverança</span> <span class="badge">Caridade Pastoral</span> <span class="badge">Perdão</span> <span class="badge">Humildade</span>
+                    <span class="badge">Humildade</span> <span class="badge">Caridade</span> <span class="badge">Zelo apostólico</span> <span class="badge">Penitência</span> <span class="badge">Obediência</span> <span class="badge">Despojamento</span>
                 </div>
                 
                 <div class="text">
-                    <p>São Oliver Plunkett, nascido em 1625 em Loughcrew, Irlanda, em uma família nobre, emergiu em um período de intensa perseguição católica, moldando-o para uma vida de serviço sacrificial. Sua formação inicial na Irlanda e depois em Roma, onde foi ordenado sacerdote em 1649, preparou-o para as árduas tarefas que o aguardavam. Em Roma, dedicou-se ao ensino e à consultoria, aprimorando sua teologia e sua visão pastoral em meio à turbulência política e religiosa de sua terra natal. Sua designação para um papel de liderança foi um chamado à coragem. </p>
-<p>Em 1669, foi nomeado Arcebispo de Armagh e Primaz de Toda a Irlanda, retornando clandestinamente para reorganizar uma Igreja dizimada pela perseguição. Com incansável zelo pastoral, ele viajou por toda a Irlanda, confirmando milhares, ordenando sacerdotes e estabelecendo escolas, incluindo um colégio jesuíta em Drogheda. Seu principal objetivo era fortalecer a fé e a estrutura eclesiástica, promovendo a paz e a unidade entre as facções, enquanto operava sob constante ameaça das Leis Penais. </p>
-<p>As virtudes de São Oliver eram um farol em tempos sombrios. Sua inabalável fidelidade à Igreja e ao seu rebanho, sua coragem em face do perigo iminente e sua perseverança incansável para ministrar aos fiéis são notáveis. Ele demonstrou uma caridade profunda por todos, até mesmo por seus inimigos, e uma humildade que o impedia de buscar o reconhecimento pessoal, focando-se apenas no bem das almas, sempre com um coração compassivo e generoso. </p>
-<p>Sua santidade foi selada pelo martírio. Falsamente acusado de traição durante a histeria do "Complot Papista", ele foi preso e submetido a um julgamento injusto em Londres. Apesar de sua inocência, e da impossibilidade de apresentar testemunhas de defesa irlandesas, foi condenado à morte. Em 1º de julho de 1681, em Tyburn, ele enfrentou sua execução com uma serenidade extraordinária, perdoando seus perseguidores e reafirmando sua fé e lealdade a Cristo e à Coroa. Ele foi o último mártir católico a morrer em Tyburn, tornando-se um símbolo eterno de resistência pacífica. </p>
-<p>O legado de São Oliver Plunkett ressoa poderosamente até hoje. Ele é um poderoso símbolo de fidelidade e coragem, inspirando a Igreja a permanecer firme em sua fé, mesmo em face da perseguição e da adversidade. Sua vida e morte nos lembram da importância de defender a verdade com caridade e de buscar a reconciliação. Canonizado em 1975, ele permanece como um patrono da paz, um intercessor para a Irlanda e um modelo universal de dedicação pastoral e perdão cristão, cuja memória fortalece a fé de muitos.</p>
-<blockquote class="quote">"Eu perdoo àqueles que me perseguiram, a todos os que testemunharam falsamente contra mim e a todos os que me trouxeram à morte. Que Deus lhes conceda um verdadeiro arrependimento."</blockquote>
-<p>A forma como São Oliver Plunkett viveu e morreu oferece luzes preciosas para os desafios do nosso tempo. Em um mundo frequentemente dividido por polarizações e desconfiança, sua postura de perdão e sua inabalável fidelidade à verdade e à sua missão pastoral são um farol. Ele nos ensina que a força da fé reside não na confrontação agressiva, mas na perseverança amorosa e na coragem de defender o que é justo, mesmo quando se está sozinho contra a corrente. Sua resiliência em face da adversidade é um testemunho eloquente da paz interior que emana de uma vida entregue a Deus. </p>
-<p>Ele nos convida a confrontar problemas modernos como a injustiça social, a perseguição à fé (em suas múltiplas formas, da hostilidade velada ao preconceito aberto) e a dificuldade em perdoar. Seu exemplo nos encoraja a buscar a justiça com caridade, a resistir à tentação de ceder ao ódio e à vingança, e a confiar que a verdade, mesmo que momentaneamente obscurecida, prevalecerá. São Oliver nos inspira a ser vozes proféticas em nossos próprios contextos, defendendo os valores cristãos com mansidão e firmeza, sem jamais perder a esperança. </p>
-<p>No dia a dia, podemos aplicar a sabedoria de São Oliver Plunkett ao praticar o perdão em nossas relações, buscando a unidade em nossas comunidades, e defendendo a verdade com amor, sem cair na tentação da agressão ou da indiferença. Isso significa testemunhar nossa fé com autenticidade, mesmo em ambientes desafiadores, e ter a coragem de permanecer fiéis aos princípios evangélicos, independentemente do custo pessoal. Sua vida é um convite a abraçar a reconciliação e a ser instrumentos de paz, confiando sempre na providência divina e na força transformadora do amor.</p>
+                    <p>São Bernardino Realino nasceu em Carpi, Itália, em 1530, em uma família nobre. Sua juventude foi marcada por uma educação esmerada em direito e uma promissora carreira secular. Exerceu cargos de magistrado e governador em diversas cidades do Reino de Nápoles, demonstrando grande competência e justiça em suas funções administrativas. Ele viveu em um período efervescente da história da Igreja, o Concílio de Trento e a Contrarreforma, o que indiretamente preparava o cenário para sua futura vocação, ainda que sua vida inicial não fosse de especial piedade, mas de retidão cívica.</p>
+<blockquote class="quote">"Senhor, a quem devo procurar senão a vós? A vós devo amar com toda a minha alma, e só a vós quero servir."</blockquote>
+<p>São Bernardino Realino nos mostra que a santidade não é exclusiva de uma fase da vida ou de uma vocação pré-determinada. Sua conversão em idade adulta e a renúncia a uma carreira promissora para abraçar a vida religiosa nos lembram que nunca é tarde para reorientar nossas vidas para o que realmente importa. Sua capacidade de ouvir o chamado divino e agir com coragem e determinação é um farol para quem busca propósito e significado em meio às distrações e exigências do mundo contemporâneo. Ele nos convida a considerar onde estamos investindo nossas energias e paixões mais profundas.</p>
+<p>No mundo atual, marcado pelo individualismo, pela busca incessante por sucesso material e pelo desejo de reconhecimento, o exemplo de São Bernardino confronta a superficialidade e a efemeridade. Ele nos desafia a olhar para além das aparências, a valorizar o serviço desinteressado aos mais necessitados e a encontrar a verdadeira riqueza na entrega a Deus e ao próximo. Sua vida nos oferece uma bússola contra a alienação e a ansiedade modernas, apontando para a alegria profunda de uma vida dedicada à fé e à construção de comunidades mais fraternas e justas.</p>
+<p>Na prática, a vida de São Bernardino nos inspira a cultivar uma escuta atenta à nossa própria consciência e ao chamado de Deus, seja qual for nossa idade, profissão ou circunstância. Podemos aplicar seu zelo apostólico em nosso próprio ambiente, dedicando tempo e talentos para servir aos outros, seja na família, no trabalho ou na comunidade. Seu desapego das glórias terrenas nos encoraja a buscar uma vida mais simples e focada no essencial, encontrando satisfação nas pequenas ações de amor, na busca pela verdade e na construção de um legado que transcende os bens materiais.</p>
 
                 </div>
             </div>
