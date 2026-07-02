@@ -59,40 +59,107 @@ def buscar_imagem_santo(nome_santo):
         return None
 
 def gerar_svg_fallback():
-    """Gera SVG decorativo quando não achar foto"""
+    """Gera SVG decorativo GRANDE e impactante"""
     return '''
-    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="saint-icon">
+    <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" class="saint-icon" preserveAspectRatio="xMidYMid meet">
         <defs>
             <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#f093fb;stop-opacity:1" />
             </linearGradient>
+            
+            <radialGradient id="glow1" cx="50%" cy="50%">
+                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.8" />
+                <stop offset="50%" style="stop-color:#f093fb;stop-opacity:0.4" />
+                <stop offset="100%" style="stop-color:#667eea;stop-opacity:0" />
+            </radialGradient>
+            
+            <filter id="blur">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="8" />
+            </filter>
+            
             <filter id="glow">
-                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                <feGaussianBlur stdDeviation="10" result="coloredBlur"/>
                 <feMerge>
+                    <feMergeNode in="coloredBlur"/>
                     <feMergeNode in="coloredBlur"/>
                     <feMergeNode in="SourceGraphic"/>
                 </feMerge>
             </filter>
         </defs>
         
-        <!-- Círculo de fundo -->
-        <circle cx="200" cy="200" r="180" fill="url(#grad1)" opacity="0.1"/>
-        <circle cx="200" cy="200" r="150" fill="url(#grad1)" opacity="0.2"/>
+        <!-- Fundo com gradiente radial -->
+        <circle cx="400" cy="300" r="350" fill="url(#glow1)" opacity="0.3">
+            <animate attributeName="r" values="350;380;350" dur="4s" repeatCount="indefinite"/>
+        </circle>
         
-        <!-- Cruz central com brilho -->
-        <g filter="url(#glow)">
-            <rect x="185" y="120" width="30" height="160" fill="url(#grad1)" rx="15"/>
-            <rect x="130" y="175" width="140" height="30" fill="url(#grad1)" rx="15"/>
+        <!-- Círculos de fundo animados -->
+        <circle cx="400" cy="300" r="280" fill="none" stroke="url(#grad1)" stroke-width="2" opacity="0.2">
+            <animate attributeName="r" values="280;300;280" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="400" cy="300" r="220" fill="none" stroke="url(#grad1)" stroke-width="3" opacity="0.3">
+            <animate attributeName="r" values="220;240;220" dur="3.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="400" cy="300" r="160" fill="none" stroke="url(#grad1)" stroke-width="4" opacity="0.4">
+            <animate attributeName="r" values="160;180;160" dur="4s" repeatCount="indefinite"/>
+        </circle>
+        
+        <!-- Raios de luz (mais visíveis) -->
+        <g opacity="0.6">
+            <path d="M 400 100 L 400 50" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+            </path>
+            <path d="M 500 150 L 540 110" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.2s" repeatCount="indefinite"/>
+            </path>
+            <path d="M 300 150 L 260 110" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.4s" repeatCount="indefinite"/>
+            </path>
+            <path d="M 580 280 L 630 270" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.6s" repeatCount="indefinite"/>
+            </path>
+            <path d="M 220 280 L 170 270" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round">
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.8s" repeatCount="indefinite"/>
+            </path>
         </g>
         
-        <!-- Auréola -->
-        <circle cx="200" cy="140" r="60" fill="none" stroke="url(#grad1)" stroke-width="6" opacity="0.6"/>
+        <!-- Cruz central GRANDE com brilho forte -->
+        <g filter="url(#glow)">
+            <!-- Sombra da cruz -->
+            <rect x="385" y="160" width="30" height="280" fill="#000000" opacity="0.1" rx="15"/>
+            <rect x="280" y="265" width="240" height="30" fill="#000000" opacity="0.1" rx="15"/>
+            
+            <!-- Cruz principal -->
+            <rect x="380" y="155" width="40" height="290" fill="url(#grad1)" rx="20">
+                <animate attributeName="opacity" values="1;0.9;1" dur="2s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="275" y="260" width="250" height="40" fill="url(#grad1)" rx="20">
+                <animate attributeName="opacity" values="1;0.9;1" dur="2s" repeatCount="indefinite"/>
+            </rect>
+        </g>
         
-        <!-- Raios de luz -->
-        <path d="M 200 80 L 200 40" stroke="url(#grad1)" stroke-width="4" opacity="0.5"/>
-        <path d="M 240 100 L 260 70" stroke="url(#grad1)" stroke-width="4" opacity="0.5"/>
-        <path d="M 160 100 L 140 70" stroke="url(#grad1)" stroke-width="4" opacity="0.5"/>
+        <!-- Auréola grande -->
+        <circle cx="400" cy="200" r="120" fill="none" stroke="url(#grad1)" stroke-width="12" opacity="0.7" filter="url(#glow)">
+            <animate attributeName="r" values="120;125;120" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.7;0.9;0.7" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        
+        <!-- Estrelas decorativas -->
+        <g fill="url(#grad1)" opacity="0.8">
+            <circle cx="300" cy="120" r="6">
+                <animate attributeName="opacity" values="0.8;1;0.8" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="500" cy="130" r="8">
+                <animate attributeName="opacity" values="0.8;1;0.8" dur="1.8s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="250" cy="250" r="5">
+                <animate attributeName="opacity" values="0.8;1;0.8" dur="2.1s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="550" cy="240" r="7">
+                <animate attributeName="opacity" values="0.8;1;0.8" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+        </g>
     </svg>
     '''
 
@@ -166,7 +233,7 @@ RETORNE APENAS O JSON VÁLIDO (sem markdown, sem explicações):
         raise
 
 def gerar_html(santo, conteudo, imagem_url=None):
-    """Gera HTML completo e impactante"""
+    """Gera HTML completo e impactante com suporte a Dark Mode"""
     data_obj = datetime.strptime(santo['data'], "%Y-%m-%d")
     data_br = data_obj.strftime("%d de %B de %Y")
     
@@ -201,10 +268,10 @@ def gerar_html(santo, conteudo, imagem_url=None):
     
     # Header com imagem ou SVG
     if imagem_url:
-        header_content = f'<img src="{imagem_url}" alt="{santo["nome"]}" class="saint-photo" onerror="this.style.display=\'none\'; document.querySelector(\'.svg-fallback\').style.display=\'block\';">'
+        header_content = f'<img src="{imagem_url}" alt="{santo["nome"]}" class="saint-photo" onerror="this.style.display=\'none\'; document.querySelector(\'.svg-fallback\').style.display=\'flex\';">'
         svg_fallback = f'<div class="svg-fallback" style="display:none;">{gerar_svg_fallback()}</div>'
     else:
-        header_content = gerar_svg_fallback()
+        header_content = f'<div class="svg-fallback">{gerar_svg_fallback()}</div>'
         svg_fallback = ''
     
     return f'''<!DOCTYPE html>
@@ -230,6 +297,19 @@ def gerar_html(santo, conteudo, imagem_url=None):
             --text-dark: #2d3748;
             --text-light: #4a5568;
             --bg-light: #f7fafc;
+            --card-bg: #ffffff;
+            --footer-bg: rgba(102,126,234,0.05);
+        }}
+        
+        /* Dark Mode */
+        @media (prefers-color-scheme: dark) {{
+            :root {{
+                --text-dark: #e2e8f0;
+                --text-light: #cbd5e0;
+                --bg-light: #1a202c;
+                --card-bg: #2d3748;
+                --footer-bg: rgba(102,126,234,0.15);
+            }}
         }}
         
         body {{
@@ -254,10 +334,10 @@ def gerar_html(santo, conteudo, imagem_url=None):
         }}
         
         .card {{
-            background: white;
+            background: var(--card-bg);
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
             animation: fadeInUp 0.8s ease;
             margin-top: 20px;
         }}
@@ -295,9 +375,10 @@ def gerar_html(santo, conteudo, imagem_url=None):
         }}
         
         .saint-icon {{
-            width: 300px;
-            height: 300px;
-            animation: float 6s ease-in-out infinite;
+            width: 100%;
+            height: 100%;
+            max-width: 800px;
+            max-height: 600px;
         }}
         
         .svg-fallback {{
@@ -306,11 +387,7 @@ def gerar_html(santo, conteudo, imagem_url=None):
             justify-content: center;
             width: 100%;
             height: 100%;
-        }}
-        
-        @keyframes float {{
-            0%, 100% {{ transform: translateY(0px); }}
-            50% {{ transform: translateY(-20px); }}
+            background: linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%);
         }}
         
         .content {{
@@ -401,6 +478,13 @@ def gerar_html(santo, conteudo, imagem_url=None):
             box-shadow: 0 4px 20px rgba(118,75,162,0.1);
         }}
         
+        @media (prefers-color-scheme: dark) {{
+            .quote {{
+                background: linear-gradient(135deg, rgba(102,126,234,0.2) 0%, rgba(118,75,162,0.2) 100%);
+                color: var(--accent);
+            }}
+        }}
+        
         .quote::before {{
             content: '"';
             font-size: 4em;
@@ -415,7 +499,7 @@ def gerar_html(santo, conteudo, imagem_url=None):
         .footer {{
             text-align: center;
             padding: 40px 50px;
-            background: linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%);
+            background: var(--footer-bg);
             border-top: 1px solid rgba(118,75,162,0.1);
             animation: fadeIn 1s ease 0.9s both;
         }}
@@ -453,11 +537,6 @@ def gerar_html(santo, conteudo, imagem_url=None):
             
             .header {{
                 height: 300px;
-            }}
-            
-            .saint-icon {{
-                width: 200px;
-                height: 200px;
             }}
             
             .content {{
@@ -503,13 +582,6 @@ def gerar_html(santo, conteudo, imagem_url=None):
             
             .footer p {{
                 font-size: 1em;
-            }}
-        }}
-        
-        /* Animação de entrada suave */
-        @media (prefers-reduced-motion: no-preference) {{
-            .card {{
-                animation: fadeInUp 0.8s ease;
             }}
         }}
     </style>
